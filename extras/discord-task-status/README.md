@@ -1,69 +1,47 @@
-# Discord Task Status Skill
+# Discord Task Status Skill (Go)
 
-Discord Activity APIを利用して、ボットのステータスメッセージを自動更新するスキルです。
+Discord Bot のプレゼンスを動的に更新する Go 製ツールです。
 
-## 機能
+## 実装
 
-- Discordステータスメッセージの設定・更新
-- タスク進行中のステータス表示
-- アクティビティタイプの指定（PLAYING, LISTENING, WATCHING, IDLEなど）
-- 現在のステータス表示
+- ソース: `cmd/picoclaw-discord-status/main.go`
+- コマンド: `picoclaw-discord-status`
+- 対応コマンド: `set` / `show` / `clear`
+
+## ビルド
+
+```bash
+# リポジトリルートで実行
+GOOS=linux GOARCH=riscv64 go build -o extras/discord-task-status/bin/picoclaw-discord-status ./extras/discord-task-status/cmd/picoclaw-discord-status
+```
 
 ## 使用方法
 
-### ステータスメッセージを設定
-
 ```bash
-# 基本的なステータス
-picoclaw-discord-status.py set "Working on task..."
+# ステータス設定
+picoclaw-discord-status set "Working on task..." --type PLAYING
 
-# アクティビティタイプを指定
-picoclaw-discord-status.py set "Processing data" --type PLAYING
-picoclaw-discord-status.py set "Idle" --type IDLE
-picoclaw-discord-status.py set "Listening to music" --type LISTENING
-picoclaw-discord-status.py set "Watching videos" --type WATCHING
+# 詳細情報付き（処理内容 / ファイル / ディレクトリ / 進捗）
+picoclaw-discord-status set --phase build --action "indexing" --file pkg/tools/web.go --dir pkg/tools --progress 45 --type PLAYING
+
+# 進捗更新
+picoclaw-discord-status set "Processing... 50%" --type PLAYING
+
+# 表示（ローカルキャッシュ）
+picoclaw-discord-status show
+
+# クリア
+picoclaw-discord-status clear
 ```
 
-### 現在のステータスを表示
+## 設定ファイル
 
-```bash
-picoclaw-discord-status.py show
-```
+`~/.picoclaw/config.json` の以下のどちらかを参照します。
 
-## 設定
+- `discord.token`
+- `channels.discord.token`
 
-`~/.picoclaw/config.json`に以下の設定を追加する必要があります：
+## 補足
 
-```json
-{
-  "discord": {
-    "token": "your-discord-bot-token",
-    "client_id": "your-client-id"
-  }
-}
-```
-
-## タスク実行時の使用例
-
-```bash
-# タスク開始
-picoclaw-discord-status.py set "Starting task..."
-
-# 処理中（10〜30秒ごとに更新）
-picoclaw-discord-status.py set "Processing... 25%"
-picoclaw-discord-status.py set "Processing... 50%"
-picoclaw-discord-status.py set "Processing... 75%"
-
-# 完了
-picoclaw-discord-status.py set "Task completed!"
-```
-
-## 依存関係
-
-- Python 3.6+
-- discord.py
-
-インストール：
-```bash
-pip install discord.py
-```
+- `show` は直近に設定した内容をローカル状態ファイルから表示します。
+- 状態ファイル: `~/.picoclaw/state/discord-task-status.json`

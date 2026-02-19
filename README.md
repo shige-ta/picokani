@@ -10,8 +10,13 @@ Compared with the official repository:
 - Removed agent/skill profile files from the published tree: SOUL.md, AGENT.md, USER.md, IDENTITY.md, SKILL.md.
 - Verified working on Sipeed LicheeRV Nano Wi-Fi.
 - Added local custom feature not in upstream: discord-task-status for dynamic Discord Bot presence updates.
-- Added code for that feature: extras/discord-task-status/scripts/picoclaw-discord-status.py
+- Added code for that feature: extras/discord-task-status/cmd/picoclaw-discord-status/main.go
 - Upstream diff summary (including upstream-only modules not in this snapshot): UPSTREAM_DIFF_SUMMARY.md
+
+### Discord Bot Status Preview
+
+![Discord Bot status showing active processing details](assets/discord-bot-status.png)
+
 <div align="center">
   <img src="assets/logo.jpg" alt="PicoClaw" width="512">
 

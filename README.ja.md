@@ -10,8 +10,12 @@
 - 公開ツリーからエージェント/スキル関連ファイルを削除: SOUL.md、AGENT.md、USER.md、IDENTITY.md、SKILL.md
 - Sipeed LicheeRV Nano Wi-Fi で動作確認済み
 - 公式にない独自機能を追加: Discord Bot のプレゼンス動的更新（discord-task-status）
-- 追加コードの配置先: extras/discord-task-status/scripts/picoclaw-discord-status.py
+- 追加コードの配置先: extras/discord-task-status/cmd/picoclaw-discord-status/main.go
 - 公式との差分一覧（このスナップショットに未反映の公式機能を含む）: UPSTREAM_DIFF_SUMMARY.md
+
+### Discord Bot ステータス表示例
+
+![Discord bot status](assets/discord-bot-status.png)
 <div align="center">
 <img src="assets/logo.jpg" alt="PicoClaw" width="512">
 

@@ -10,8 +10,12 @@
 - 已从公开目录移除 Agent/Skill 相关文件: SOUL.md、AGENT.md、USER.md、IDENTITY.md、SKILL.md
 - 已在 Sipeed LicheeRV Nano Wi-Fi 上验证可运行
 - 已新增官方仓库中没有的本地功能: 用于 Discord Bot Presence 动态更新的 discord-task-status
-- 该功能代码位置: extras/discord-task-status/scripts/picoclaw-discord-status.py
+- 该功能代码位置: extras/discord-task-status/cmd/picoclaw-discord-status/main.go
 - 与官方差异汇总（含本快照未包含的官方模块）: UPSTREAM_DIFF_SUMMARY.md
+
+### Discord Bot 状态显示示例
+
+![Discord bot status](assets/discord-bot-status.png)
 <div align="center">
 <img src="assets/logo.jpg" alt="PicoClaw" width="512">
 
