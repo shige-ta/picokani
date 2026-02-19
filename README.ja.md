@@ -1,27 +1,72 @@
-## 公開フォーク概要
+﻿## 公開フォーク概要
 
-非公開の実行環境で実際に動いているコードを解析し、その内容を基準に反映しています。
+このリポジトリは、非公開の実行環境で実際に動作している内容をもとに、公開用に整理したフォークです。
 
-公式リポジトリとの差分:
+公式との差分:
 
 - 公式: https://github.com/sipeed/picoclaw
-- 実行環境の最新のビルド前 Go ソースを同期
-- 公開用の整理を実施: build/、gateway.log、config/config.json を削除
-- 公開ツリーからエージェント/スキル関連ファイルを削除: SOUL.md、AGENT.md、USER.md、IDENTITY.md、SKILL.md
+- 実行環境の最新ビルド前 Go ソースを同期
+- 公開用に不要/秘匿ファイルを除外（build/, gateway.log, config/config.json など）
+- エージェント/スキルの個人設定ファイルを除外（SOUL.md, AGENT.md, USER.md, IDENTITY.md, SKILL.md）
 - Sipeed LicheeRV Nano Wi-Fi で動作確認済み
-- 公式にない独自機能を追加: Discord Bot のプレゼンス動的更新（discord-task-status）
-- 追加コードの配置先: extras/discord-task-status/cmd/picoclaw-discord-status/main.go
-- 公式との差分一覧（このスナップショットに未反映の公式機能を含む）: UPSTREAM_DIFF_SUMMARY.md
+- 独自追加: Discord Bot プレゼンス動的更新（discord-task-status）
+- 実装コード: extras/discord-task-status/cmd/picoclaw-discord-status/main.go
+- 公式との差分一覧: UPSTREAM_DIFF_SUMMARY.md
 
 ### Discord Bot ステータス表示例
 
 ![Discord bot status](assets/discord-bot-status.png)
+
+### Discord 設定（トークン発行と権限）
+
+1. Discord Developer Portal でアプリを作成
+2. `Bot` タブで Bot トークンを発行（または再生成）
+3. `OAuth2 > URL Generator` で `SCOPES: bot` を選択
+4. `PERMISSIONS` は次を有効化
+   - `View Channels`
+   - `Send Messages`
+   - `Read Message History`
+5. 生成された URL で Bot をサーバーに招待
+6. 必要に応じて `Bot > Privileged Gateway Intents` の `MESSAGE CONTENT INTENT` を有効化
+
+`~/.picoclaw/config.json` の設定例:
+
+```json
+{
+  "channels": {
+    "discord": {
+      "enabled": true,
+      "token": "YOUR_DISCORD_BOT_TOKEN",
+      "allow_from": [],
+      "allow_channels": [],
+      "mention_only": false
+    }
+  }
+}
+```
+
+プレゼンス更新（Bot ステータス）の実行例:
+
+```bash
+picoclaw-discord-status set --phase build --action "indexing" --file "pkg/tools/web.go" --dir "pkg/tools" --progress 45 --type PLAYING
+```
+
+補助ツール単体利用時の互換キー:
+
+```json
+{
+  "discord": {
+    "token": "YOUR_DISCORD_BOT_TOKEN",
+    "client_id": "YOUR_APPLICATION_ID"
+  }
+}
+```
 <div align="center">
 <img src="assets/logo.jpg" alt="PicoClaw" width="512">
 
 <h1>PicoClaw: Go で書かれた超効率 AI アシスタント</h1>
 
-<h3>$10 ハードウェア · 10MB RAM · 1秒起動 · 皮皮虾，我们走！</h3>
+<h3>$10 ハードウェア · 10MB RAM · 1秒起動 · 行くぜ、シャコ！</h3>
 <h3></h3>
 
 <p>
@@ -30,7 +75,7 @@
 <img src="https://img.shields.io/badge/license-MIT-green" alt="License">
 </p>
 
-**日本語** | [English](README.md)
+[中文](README.zh.md) | **日本語** | [Português](README.pt-br.md) | [Tiếng Việt](README.vi.md) | [English](README.md)
 
 </div>
 
@@ -57,7 +102,7 @@
 </table>
 
 ## 📢 ニュース
-2026-02-09 🎉 PicoClaw リリース！$10 ハードウェアで 10MB 未満の RAM で動く AI エージェントを 1 日で構築。🦐 皮皮虾，我们走！
+2026-02-09 🎉 PicoClaw リリース！$10 ハードウェアで 10MB 未満の RAM で動く AI エージェントを 1 日で構築。🦐 行くぜ、シャコ！
 
 ## ✨ 特徴
 
@@ -213,6 +258,9 @@ picoclaw onboard
         "api_key": "YOUR_BRAVE_API_KEY",
         "max_results": 5
       }
+    },
+    "cron": {
+      "exec_timeout_minutes": 5
     }
   },
   "heartbeat": {
@@ -268,7 +316,7 @@ Telegram、Discord、QQ、DingTalk、LINE で PicoClaw と会話できます
     "telegram": {
       "enabled": true,
       "token": "YOUR_BOT_TOKEN",
-      "allowFrom": ["YOUR_USER_ID"]
+      "allow_from": ["YOUR_USER_ID"]
     }
   }
 }
@@ -308,7 +356,7 @@ picoclaw gateway
     "discord": {
       "enabled": true,
       "token": "YOUR_BOT_TOKEN",
-      "allowFrom": ["YOUR_USER_ID"]
+      "allow_from": ["YOUR_USER_ID"]
     }
   }
 }
@@ -691,7 +739,7 @@ HEARTBEAT_OK 応答         ユーザーが直接結果を受け取る
     "telegram": {
       "enabled": true,
       "token": "123456:ABC...",
-      "allowFrom": ["123456789"]
+      "allow_from": ["123456789"]
     },
     "discord": {
       "enabled": true,
@@ -707,7 +755,7 @@ HEARTBEAT_OK 応答         ユーザーが直接結果を受け取る
       "appSecret": "xxx",
       "encryptKey": "",
       "verificationToken": "",
-      "allowFrom": []
+      "allow_from": []
     }
   },
   "tools": {
@@ -715,6 +763,9 @@ HEARTBEAT_OK 応答         ユーザーが直接結果を受け取る
       "search": {
         "apiKey": "BSA..."
       }
+    },
+    "cron": {
+      "exec_timeout_minutes": 5
     }
   },
   "heartbeat": {
@@ -747,7 +798,7 @@ Discord: https://discord.gg/V4sAZ9XWpN
 
 ## 🐛 トラブルシューティング
 
-### Web 検索で「API 配置问题」と表示される
+### Web 検索で「API 設定の問題」と表示される
 
 検索 API キーをまだ設定していない場合、これは正常です。PicoClaw は手動検索用の便利なリンクを提供します。
 

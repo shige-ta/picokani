@@ -16,13 +16,52 @@ Compared with the official repository:
 ### Discord Bot Status Preview
 
 ![Discord Bot status showing active processing details](assets/discord-bot-status.png)
+### Discord Token and Presence Setup
+
+1. Open Discord Developer Portal and create an application.
+2. Open `Bot` tab, create/reset bot token, and copy the token.
+3. In `OAuth2 > URL Generator`, enable `bot` scope and invite the bot to your server.
+4. In `Bot > Privileged Gateway Intents`, enable `MESSAGE CONTENT INTENT` if needed.
+
+Use this config in `~/.picoclaw/config.json`:
+
+```json
+{
+  "channels": {
+    "discord": {
+      "enabled": true,
+      "token": "YOUR_DISCORD_BOT_TOKEN",
+      "allow_from": [],
+      "allow_channels": [],
+      "mention_only": false
+    }
+  }
+}
+```
+
+For dynamic presence updates (status text), run:
+
+```bash
+picoclaw-discord-status set --phase build --action "indexing" --file "pkg/tools/web.go" --dir "pkg/tools" --progress 45 --type PLAYING
+```
+
+If you use the standalone status tool, the following compatibility key is also supported:
+
+```json
+{
+  "discord": {
+    "token": "YOUR_DISCORD_BOT_TOKEN",
+    "client_id": "YOUR_APPLICATION_ID"
+  }
+}
+```
 
 <div align="center">
   <img src="assets/logo.jpg" alt="PicoClaw" width="512">
 
   <h1>PicoClaw: Ultra-Efficient AI Assistant in Go</h1>
 
-  <h3>$10 Hardware · 10MB RAM · 1s Boot · 皮皮虾，我们走！</h3>
+  <h3>$10 Hardware ﾂｷ 10MB RAM ﾂｷ 1s Boot ﾂｷ 逧ｮ逧ｮ陌ｾ・梧・莉ｬ襍ｰ・・/h3>
 
   <p>
     <img src="https://img.shields.io/badge/Go-1.21+-00ADD8?style=flat&logo=go&logoColor=white" alt="Go">
@@ -33,14 +72,14 @@ Compared with the official repository:
     <a href="https://x.com/SipeedIO"><img src="https://img.shields.io/badge/X_(Twitter)-SipeedIO-black?style=flat&logo=x&logoColor=white" alt="Twitter"></a>
   </p>
 
- [中文](README.zh.md) | [日本語](README.ja.md) | **English**
+ [荳ｭ譁Ⅹ(README.zh.md) | [譌･譛ｬ隱枉(README.ja.md) | **English**
 </div>
 
 ---
 
-🦐 PicoClaw is an ultra-lightweight personal AI Assistant inspired by [nanobot](https://github.com/HKUDS/nanobot), refactored from the ground up in Go through a self-bootstrapping process, where the AI agent itself drove the entire architectural migration and code optimization.
+ｦ・PicoClaw is an ultra-lightweight personal AI Assistant inspired by [nanobot](https://github.com/HKUDS/nanobot), refactored from the ground up in Go through a self-bootstrapping process, where the AI agent itself drove the entire architectural migration and code optimization.
 
-⚡️ Runs on $10 hardware with <10MB RAM: That's 99% less memory than OpenClaw and 98% cheaper than a Mac mini!
+笞｡・・Runs on $10 hardware with <10MB RAM: That's 99% less memory than OpenClaw and 98% cheaper than a Mac mini!
 
 <table align="center">
   <tr align="center">
@@ -58,34 +97,33 @@ Compared with the official repository:
 </table>
 
 > [!CAUTION]
-> **🚨 SECURITY & OFFICIAL CHANNELS / 安全声明**
+> **圷 SECURITY & OFFICIAL CHANNELS / 螳牙・螢ｰ譏・*
 >
 > * **NO CRYPTO:** PicoClaw has **NO** official token/coin. All claims on `pump.fun` or other trading platforms are **SCAMS**.
 > * **OFFICIAL DOMAIN:** The **ONLY** official website is **[picoclaw.io](https://picoclaw.io)**, and company website is **[sipeed.com](https://sipeed.com)**
 > * **Warning:** Many `.ai/.org/.com/.net/...` domains are registered by third parties.
 > * **Warning:** picoclaw is in early development now and may have unresolved network security issues. Do not deploy to production environments before the v1.0 release.
-> * **Note:** picoclaw has recently merged a lot of PRs, which may result in a larger memory footprint (10–20MB) in the latest versions. We plan to prioritize resource optimization as soon as the current feature set reaches a stable state.
+> * **Note:** picoclaw has recently merged a lot of PRs, which may result in a larger memory footprint (10窶・0MB) in the latest versions. We plan to prioritize resource optimization as soon as the current feature set reaches a stable state.
 
 
-## 📢 News
-2026-02-16 🎉 PicoClaw hit 12K stars in one week! Thank you all for your support! PicoClaw is growing faster than we ever imagined. Given the high volume of PRs, we urgently need community maintainers. Our volunteer roles and roadmap are officially posted [here](docs/picoclaw_community_roadmap_260216.md) —we can’t wait to have you on board!
+## 討 News
+2026-02-16 脂 PicoClaw hit 12K stars in one week! Thank you all for your support! PicoClaw is growing faster than we ever imagined. Given the high volume of PRs, we urgently need community maintainers. Our volunteer roles and roadmap are officially posted [here](docs/picoclaw_community_roadmap_260216.md) 窶背e can窶冲 wait to have you on board!
 
-2026-02-13 🎉 PicoClaw hit 5000 stars in 4days! Thank you for the community! There are so many PRs&issues come in (during Chinese New Year holidays), we are finalizing the Project Roadmap and setting up the Developer Group to accelerate PicoClaw's development.  
-🚀 Call to Action: Please submit your feature requests in GitHub Discussions. We will review and prioritize them during our upcoming weekly meeting.
+2026-02-13 脂 PicoClaw hit 5000 stars in 4days! Thank you for the community! There are so many PRs&issues come in (during Chinese New Year holidays), we are finalizing the Project Roadmap and setting up the Developer Group to accelerate PicoClaw's development.  
+噫 Call to Action: Please submit your feature requests in GitHub Discussions. We will review and prioritize them during our upcoming weekly meeting.
 
-2026-02-09 🎉 PicoClaw Launched! Built in 1 day to bring AI Agents to $10 hardware with <10MB RAM. 🦐 PicoClaw，Let's Go！
+2026-02-09 脂 PicoClaw Launched! Built in 1 day to bring AI Agents to $10 hardware with <10MB RAM. ｦ・PicoClaw・鍬et's Go・・
+## 笨ｨ Features
 
-## ✨ Features
+ｪｶ **Ultra-Lightweight**: <10MB Memory footprint 窶・99% smaller than Clawdbot - core functionality.
 
-🪶 **Ultra-Lightweight**: <10MB Memory footprint — 99% smaller than Clawdbot - core functionality.
+腸 **Minimal Cost**: Efficient enough to run on $10 Hardware 窶・98% cheaper than a Mac mini.
 
-💰 **Minimal Cost**: Efficient enough to run on $10 Hardware — 98% cheaper than a Mac mini.
+笞｡・・**Lightning Fast**: 400X Faster startup time, boot in 1 second even in 0.6GHz single core.
 
-⚡️ **Lightning Fast**: 400X Faster startup time, boot in 1 second even in 0.6GHz single core.
+訣 **True Portability**: Single self-contained binary across RISC-V, ARM, and x86, One-click to Go!
 
-🌍 **True Portability**: Single self-contained binary across RISC-V, ARM, and x86, One-click to Go!
-
-🤖 **AI-Bootstrapped**: Autonomous Go-native implementation — 95% Agent-generated core with human-in-the-loop refinement.
+､・**AI-Bootstrapped**: Autonomous Go-native implementation 窶・95% Agent-generated core with human-in-the-loop refinement.
 
 |                               | OpenClaw      | NanoBot                  | **PicoClaw**                              |
 | ----------------------------- | ------------- | ------------------------ | ----------------------------------------- |
@@ -96,15 +134,15 @@ Compared with the official repository:
 
 <img src="assets/compare.jpg" alt="PicoClaw" width="512">
 
-## 🦾 Demonstration
+## ｦｾ Demonstration
 
-### 🛠️ Standard Assistant Workflows
+### 屏・・Standard Assistant Workflows
 
 <table align="center">
   <tr align="center">
-    <th><p align="center">🧩 Full-Stack Engineer</p></th>
-    <th><p align="center">🗂️ Logging & Planning Management</p></th>
-    <th><p align="center">🔎 Web Search & Learning</p></th>
+    <th><p align="center">ｧｩ Full-Stack Engineer</p></th>
+    <th><p align="center">翌・・Logging & Planning Management</p></th>
+    <th><p align="center">博 Web Search & Learning</p></th>
   </tr>
   <tr>
     <td align="center"><p align="center"><img src="assets/picoclaw_code.gif" width="240" height="180"></p></td>
@@ -112,13 +150,13 @@ Compared with the official repository:
     <td align="center"><p align="center"><img src="assets/picoclaw_search.gif" width="240" height="180"></p></td>
   </tr>
   <tr>
-    <td align="center">Develop • Deploy • Scale</td>
-    <td align="center">Schedule • Automate • Memory</td>
-    <td align="center">Discovery • Insights • Trends</td>
+    <td align="center">Develop 窶｢ Deploy 窶｢ Scale</td>
+    <td align="center">Schedule 窶｢ Automate 窶｢ Memory</td>
+    <td align="center">Discovery 窶｢ Insights 窶｢ Trends</td>
   </tr>
 </table>
 
-### 📱 Run on old Android Phones
+### 導 Run on old Android Phones
 Give your decade-old phone a second life! Turn it into a smart AI Assistant with PicoClaw. Quick Start:
 1. **Install Termux** (Available on F-Droid or Google Play).
 2. **Execute cmds**
@@ -132,7 +170,7 @@ termux-chroot ./picoclaw-linux-arm64 onboard
 And then follow the instructions in the "Quick Start" section to complete the configuration!
 <img src="assets/termux.jpg" alt="PicoClaw" width="512">
 
-### 🐜 Innovative Low-Footprint Deploy
+### 頗 Innovative Low-Footprint Deploy
 
 PicoClaw can be deployed on almost any Linux device!
 
@@ -142,9 +180,8 @@ PicoClaw can be deployed on almost any Linux device!
 
 <https://private-user-images.githubusercontent.com/83055338/547056448-e7b031ff-d6f5-4468-bcca-5726b6fecb5c.mp4>
 
-🌟 More Deployment Cases Await！
-
-## 📦 Install
+検 More Deployment Cases Await・・
+## 逃 Install
 
 ### Install with precompiled binary
 
@@ -168,7 +205,7 @@ make build-all
 make install
 ```
 
-## 🐳 Docker Compose
+## 正 Docker Compose
 
 You can also run PicoClaw using Docker Compose without installing anything locally.
 
@@ -208,11 +245,11 @@ docker compose --profile gateway build --no-cache
 docker compose --profile gateway up -d
 ```
 
-### 🚀 Quick Start
+### 噫 Quick Start
 
 > [!TIP]
 > Set your API key in `~/.picoclaw/config.json`.
-> Get API keys: [OpenRouter](https://openrouter.ai/keys) (LLM) · [Zhipu](https://open.bigmodel.cn/usercenter/proj-mgmt/apikeys) (LLM)
+> Get API keys: [OpenRouter](https://openrouter.ai/keys) (LLM) ﾂｷ [Zhipu](https://open.bigmodel.cn/usercenter/proj-mgmt/apikeys) (LLM)
 > Web search is **optional** - get free [Brave Search API](https://brave.com/search/api) (2000 free queries/month) or use built-in auto fallback.
 
 **1. Initialize**
@@ -258,7 +295,7 @@ picoclaw onboard
 
 **3. Get API Keys**
 
-* **LLM Provider**: [OpenRouter](https://openrouter.ai/keys) · [Zhipu](https://open.bigmodel.cn/usercenter/proj-mgmt/apikeys) · [Anthropic](https://console.anthropic.com) · [OpenAI](https://platform.openai.com) · [Gemini](https://aistudio.google.com/api-keys)
+* **LLM Provider**: [OpenRouter](https://openrouter.ai/keys) ﾂｷ [Zhipu](https://open.bigmodel.cn/usercenter/proj-mgmt/apikeys) ﾂｷ [Anthropic](https://console.anthropic.com) ﾂｷ [OpenAI](https://platform.openai.com) ﾂｷ [Gemini](https://aistudio.google.com/api-keys)
 * **Web Search** (optional): [Brave Search](https://brave.com/search/api) - Free tier available (2000 requests/month)
 
 > **Note**: See `config.example.json` for a complete configuration template.
@@ -273,7 +310,7 @@ That's it! You have a working AI assistant in 2 minutes.
 
 ---
 
-## 💬 Chat Apps
+## 町 Chat Apps
 
 Talk to your picoclaw through Telegram, Discord, DingTalk, or LINE
 
@@ -324,7 +361,7 @@ picoclaw gateway
 **1. Create a bot**
 
 * Go to <https://discord.com/developers/applications>
-* Create an application → Bot → Add Bot
+* Create an application 竊・Bot 竊・Add Bot
 * Copy the bot token
 
 **2. Enable intents**
@@ -334,8 +371,8 @@ picoclaw gateway
 
 **3. Get your User ID**
 
-* Discord Settings → Advanced → enable **Developer Mode**
-* Right-click your avatar → **Copy User ID**
+* Discord Settings 竊・Advanced 竊・enable **Developer Mode**
+* Right-click your avatar 竊・**Copy User ID**
 
 **4. Configure**
 
@@ -353,7 +390,7 @@ picoclaw gateway
 
 **5. Invite the bot**
 
-* OAuth2 → URL Generator
+* OAuth2 竊・URL Generator
 * Scopes: `bot`
 * Bot Permissions: `Send Messages`, `Read Message History`
 * Open the generated invite URL and add the bot to your server
@@ -372,7 +409,7 @@ picoclaw gateway
 **1. Create a bot**
 
 - Go to [QQ Open Platform](https://q.qq.com/#)
-- Create an application → Get **AppID** and **AppSecret**
+- Create an application 竊・Get **AppID** and **AppSecret**
 
 **2. Configure**
 
@@ -439,7 +476,7 @@ picoclaw gateway
 **1. Create a LINE Official Account**
 
 - Go to [LINE Developers Console](https://developers.line.biz/)
-- Create a provider → Create a Messaging API channel
+- Create a provider 竊・Create a Messaging API channel
 - Copy **Channel Secret** and **Channel Access Token**
 
 **2. Configure**
@@ -489,7 +526,7 @@ Connect Picoclaw to the Agent Social Network simply by sending a single message 
 
 **Read `https://clawdchat.ai/skill.md` and follow the instructions to join [ClawdChat.ai](https://clawdchat.ai)**
 
-## ⚙️ Configuration
+## 笞呻ｸ・Configuration
 
 Config file: `~/.picoclaw/config.json`
 
@@ -499,20 +536,20 @@ PicoClaw stores data in your configured workspace (default: `~/.picoclaw/workspa
 
 ```
 ~/.picoclaw/workspace/
-├── sessions/          # Conversation sessions and history
-├── memory/           # Long-term memory (MEMORY.md)
-├── state/            # Persistent state (last channel, etc.)
-├── cron/             # Scheduled jobs database
-├── skills/           # Custom skills
-├── AGENTS.md         # Agent behavior guide
-├── HEARTBEAT.md      # Periodic task prompts (checked every 30 min)
-├── IDENTITY.md       # Agent identity
-├── SOUL.md           # Agent soul
-├── TOOLS.md          # Tool descriptions
-└── USER.md           # User preferences
+笏懌楳笏 sessions/          # Conversation sessions and history
+笏懌楳笏 memory/           # Long-term memory (MEMORY.md)
+笏懌楳笏 state/            # Persistent state (last channel, etc.)
+笏懌楳笏 cron/             # Scheduled jobs database
+笏懌楳笏 skills/           # Custom skills
+笏懌楳笏 AGENTS.md         # Agent behavior guide
+笏懌楳笏 HEARTBEAT.md      # Periodic task prompts (checked every 30 min)
+笏懌楳笏 IDENTITY.md       # Agent identity
+笏懌楳笏 SOUL.md           # Agent soul
+笏懌楳笏 TOOLS.md          # Tool descriptions
+笏披楳笏 USER.md           # User preferences
 ```
 
-### 🔒 Security Sandbox
+### 白 Security Sandbox
 
 PicoClaw runs in a sandboxed environment by default. The agent can only access files and execute commands within the configured workspace.
 
@@ -551,11 +588,11 @@ When `restrict_to_workspace: true`, the following tools are sandboxed:
 
 Even with `restrict_to_workspace: false`, the `exec` tool blocks these dangerous commands:
 
-* `rm -rf`, `del /f`, `rmdir /s` — Bulk deletion
-* `format`, `mkfs`, `diskpart` — Disk formatting
-* `dd if=` — Disk imaging
-* Writing to `/dev/sd[a-z]` — Direct disk writes
-* `shutdown`, `reboot`, `poweroff` — System shutdown
+* `rm -rf`, `del /f`, `rmdir /s` 窶・Bulk deletion
+* `format`, `mkfs`, `diskpart` 窶・Disk formatting
+* `dd if=` 窶・Disk imaging
+* Writing to `/dev/sd[a-z]` 窶・Direct disk writes
+* `shutdown`, `reboot`, `poweroff` 窶・System shutdown
 * Fork bomb `:(){ :|:& };:`
 
 #### Error Examples
@@ -592,7 +629,7 @@ If you need the agent to access paths outside the workspace:
 export PICOCLAW_AGENTS_DEFAULTS_RESTRICT_TO_WORKSPACE=false
 ```
 
-> ⚠️ **Warning**: Disabling this restriction allows the agent to access any path on your system. Use with caution in controlled environments only.
+> 笞・・**Warning**: Disabling this restriction allows the agent to access any path on your system. Use with caution in controlled environments only.
 
 #### Security Boundary Consistency
 
@@ -600,11 +637,11 @@ The `restrict_to_workspace` setting applies consistently across all execution pa
 
 | Execution Path | Security Boundary |
 |----------------|-------------------|
-| Main Agent | `restrict_to_workspace` ✅ |
-| Subagent / Spawn | Inherits same restriction ✅ |
-| Heartbeat tasks | Inherits same restriction ✅ |
+| Main Agent | `restrict_to_workspace` 笨・|
+| Subagent / Spawn | Inherits same restriction 笨・|
+| Heartbeat tasks | Inherits same restriction 笨・|
 
-All paths share the same workspace restriction — there's no way to bypass the security boundary through subagents or scheduled tasks.
+All paths share the same workspace restriction 窶・there's no way to bypass the security boundary through subagents or scheduled tasks.
 
 ### Heartbeat (Periodic Tasks)
 
@@ -648,16 +685,11 @@ For long-running tasks (web search, API calls), use the `spawn` tool to create a
 
 ```
 Heartbeat triggers
-    ↓
-Agent reads HEARTBEAT.md
-    ↓
-For long task: spawn subagent
-    ↓                           ↓
-Continue to next task      Subagent works independently
-    ↓                           ↓
-All tasks done            Subagent uses "message" tool
-    ↓                           ↓
-Respond HEARTBEAT_OK      User receives result directly
+    竊・Agent reads HEARTBEAT.md
+    竊・For long task: spawn subagent
+    竊・                          竊・Continue to next task      Subagent works independently
+    竊・                          竊・All tasks done            Subagent uses "message" tool
+    竊・                          竊・Respond HEARTBEAT_OK      User receives result directly
 ```
 
 The subagent has access to tools (message, web_search, etc.) and can communicate with the user independently without going through the main agent.
@@ -820,16 +852,15 @@ picoclaw agent -m "Hello"
 
 PicoClaw supports scheduled reminders and recurring tasks through the `cron` tool:
 
-* **One-time reminders**: "Remind me in 10 minutes" → triggers once after 10min
-* **Recurring tasks**: "Remind me every 2 hours" → triggers every 2 hours
-* **Cron expressions**: "Remind me at 9am daily" → uses cron expression
+* **One-time reminders**: "Remind me in 10 minutes" 竊・triggers once after 10min
+* **Recurring tasks**: "Remind me every 2 hours" 竊・triggers every 2 hours
+* **Cron expressions**: "Remind me at 9am daily" 竊・uses cron expression
 
 Jobs are stored in `~/.picoclaw/workspace/cron/` and processed automatically.
 
-## 🤝 Contribute & Roadmap
+## ､・Contribute & Roadmap
 
-PRs welcome! The codebase is intentionally small and readable. 🤗
-
+PRs welcome! The codebase is intentionally small and readable. ､・
 Roadmap coming soon...
 
 Developer group building, Entry Requirement: At least 1 Merged PR.
@@ -840,9 +871,9 @@ discord:  <https://discord.gg/V4sAZ9XWpN>
 
 <img src="assets/wechat.png" alt="PicoClaw" width="512">
 
-## 🐛 Troubleshooting
+## 菅 Troubleshooting
 
-### Web search says "API 配置问题"
+### Web search says "API 驟咲ｽｮ髣ｮ鬚・
 
 This is normal if you haven't configured a search API key yet. PicoClaw will provide helpful links for manual searching.
 
@@ -881,7 +912,7 @@ This happens when another instance of the bot is running. Make sure only one `pi
 
 ---
 
-## 📝 API Key Comparison
+## 統 API Key Comparison
 
 | Service          | Free Tier           | Use Case                              |
 | ---------------- | ------------------- | ------------------------------------- |
